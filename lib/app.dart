@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_manager/recipe/cubit/recipes_cubit.dart';
 import 'package:recipe_manager/recipe/cubit/favorite_cubit.dart';
+import 'package:recipe_manager/recipe/view/favorites_page.dart';
 import 'package:recipe_manager/recipe/view/recipes_page.dart';
-import 'package:recipe_manager/recipe/view/favorites.page.dart';
 import 'package:recipe_repository/recipe_repository.dart';
 
 class RecipeApp extends StatelessWidget {

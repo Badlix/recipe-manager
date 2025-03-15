@@ -30,4 +30,8 @@ class Recipe extends Equatable {
       imageUri: imageUri ?? this.imageUri,
     );
   }
+
+  recipe_repository.Recipe toRepository() {
+    return recipe_repository.Recipe(id: id, name: name, imageUri: imageUri);
+  }
 }

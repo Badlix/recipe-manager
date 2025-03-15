@@ -4,17 +4,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:spoonacular_api/spoonacular_api.dart';
 
-/// Exception thrown when recipeSearch fails.
 class RecipeRequestFailure implements Exception {}
 
-/// Exception thrown when the provided recipe is not found.
 class RecipeNotFoundFailure implements Exception {}
 
-/// {@template spoonacular_api_client}
-/// Dart API Client which wraps the [Spooncacular API](https://api.spoonacular.com).
-/// {@endtemplate}
 class SpoonacularApiClient {
-  /// {@macro spoonacular_api_client}
   SpoonacularApiClient({http.Client? httpClient})
     : _httpClient = httpClient ?? http.Client();
 
@@ -22,17 +16,14 @@ class SpoonacularApiClient {
 
   final http.Client _httpClient;
 
-  /// Finds [Recipe] `/recipes/complexSearch?query=(query)`.
+  // GET '/recipes/complexSearch?query=(query)'
   Future<List<Recipe>> recipeSearch(String query) async {
-    final recipeRequest = Uri.https(
-      _baseUrlSpoonacular,
-      '/recipes/complexSearch',
-      {
-        'apiKey': "45e151b1f38d40a5b1a2a9d46a9c05a1",
-        'query': query,
-        'number': '10',
-      },
-    );
+    final recipeRequest =
+        Uri.https(_baseUrlSpoonacular, '/recipes/complexSearch', {
+          'apiKey': const String.fromEnvironment('SPOONACULAR_KEY'),
+          'query': query,
+          'number': '10',
+        });
 
     final recipeResponse = await _httpClient.get(recipeRequest);
 
@@ -56,12 +47,12 @@ class SpoonacularApiClient {
     return recipes;
   }
 
-  /// Finds [Recipe] `/recipes/{id}/information`.
+  // GET '/recipes/{id}/information'
   Future<Recipe> getRecipeDetail(int id) async {
     final recipeRequest = Uri.https(
       _baseUrlSpoonacular,
       '/recipes/$id/information',
-      {'apiKey': "45e151b1f38d40a5b1a2a9d46a9c05a1"},
+      {'apiKey': const String.fromEnvironment('SPOONACULAR_KEY')},
     );
 
     final recipeResponse = await _httpClient.get(recipeRequest);

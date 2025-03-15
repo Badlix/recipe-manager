@@ -6,24 +6,24 @@ import 'package:recipe_repository/recipe_repository.dart' show RecipeRepository;
 part 'recipes_state.dart';
 
 class RecipesCubit extends Cubit<RecipesState> {
-  RecipesCubit(this._recipeRepository) : super(RecipesState());
+  RecipesCubit(this._repository) : super(RecipesState());
 
-  final RecipeRepository _recipeRepository;
+  final RecipeRepository _repository;
 
-  Future<void> fetchRecipes(String searchText) async {
-    emit(state.copyWith(status: RecipesStatus.loading));
-
+  Future<void> searchRecipes(String query) async {
     try {
-      var searchResult = await _recipeRepository.searchRecipes(searchText);
+      emit(state.copyWith(status: RecipesStatus.loading));
 
-      List<Recipe> recipes = [];
-
-      for (var recipe in searchResult) {
-        recipes.add(Recipe.fromRepository(recipe));
-      }
-
-      emit(state.copyWith(status: RecipesStatus.success, recipes: recipes));
-    } on Exception {
+      final recipes = await _repository.searchRecipes(query);
+      emit(
+        state.copyWith(
+          status: RecipesStatus.success,
+          recipes:
+              recipes.map((recipe) => Recipe.fromRepository(recipe)).toList(),
+        ),
+      );
+    } catch (error) {
+      print("ERROR : ${error.toString()}");
       emit(state.copyWith(status: RecipesStatus.failure));
     }
   }

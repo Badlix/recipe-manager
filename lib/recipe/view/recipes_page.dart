@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_manager/recipe/cubit/recipes_cubit.dart';
+import 'package:recipe_manager/recipe/view/recipe_card.dart';
 
 class RecipesPage extends StatelessWidget {
   const RecipesPage({super.key});
@@ -15,15 +16,20 @@ class RecipesPage extends StatelessWidget {
             RecipesStatus.loading => const Center(child: Text('Loading')),
             RecipesStatus.failure => const Center(child: Text('Failure')),
             RecipesStatus.success => ListView(
+              padding: EdgeInsets.symmetric(vertical: 10),
               children:
-                  state.recipes.map((recipe) => Text(recipe.name)).toList(),
+                  state.recipes
+                      .map(
+                        (recipe) => Center(child: RecipeCard(recipe: recipe)),
+                      )
+                      .toList(),
             ),
           };
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          context.read<RecipesCubit>().fetchRecipes('soup');
+          context.read<RecipesCubit>().searchRecipes('pie');
         },
         child: Icon(Icons.search),
       ),

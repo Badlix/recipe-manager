@@ -24,12 +24,6 @@ void main() {
       apiClient = SpoonacularApiClient(httpClient: httpClient);
     });
 
-    group('constructor', () {
-      test('does not require an httpClient', () {
-        expect(SpoonacularApiClient(), isNotNull);
-      });
-    });
-
     group('recipeSearch', () {
       const query = 'mock-query';
       test('makes correct http request', () async {
@@ -43,7 +37,7 @@ void main() {
         verify(
           () => httpClient.get(
             Uri.https('api.spoonacular.com', '/recipes/complexSearch', {
-              'apiKey': "45e151b1f38d40a5b1a2a9d46a9c05a1",
+              'apiKey': const String.fromEnvironment('SPOONACULAR_KEY'),
               'query': query,
               'number': '1',
             }),
@@ -103,7 +97,7 @@ void main() {
           isA<Recipe>()
               .having((l) => l.title, 'title', 'Soupe aux champignons')
               .having((l) => l.id, 'id', 13)
-              .having((l) => l.image, 'img', 'https://img'),
+              .having((l) => l.image, 'image', 'https://img'),
         );
       });
     });

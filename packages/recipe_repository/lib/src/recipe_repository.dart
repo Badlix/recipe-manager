@@ -10,15 +10,13 @@ class RecipeRepository {
   final SpoonacularApiClient _spoonacularApiClient;
 
   Future<List<Recipe>> searchRecipes(String searchText) async {
-    final result = await _spoonacularApiClient.recipeSearch(searchText);
-    List<Recipe> recipes = [];
-    for (var element in result) {
-      recipes.add(
-        Recipe(id: element.id, name: element.title, imageUri: element.image),
-      );
-    }
-
-    return recipes;
+    var recipes = await _spoonacularApiClient.recipeSearch(searchText);
+    return recipes
+        .map(
+          (recipe) =>
+              Recipe(id: recipe.id, name: recipe.title, imageUri: recipe.image),
+        )
+        .toList();
   }
 
   Future<Recipe> getRecipeDetail(int id) async {

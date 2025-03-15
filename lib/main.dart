@@ -3,5 +3,6 @@ import 'package:recipe_manager/app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const RecipeApp());
+
+  runApp(RecipeApp());
 }

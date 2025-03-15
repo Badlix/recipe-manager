@@ -3,12 +3,40 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_manager/recipe/cubit/recipes_cubit.dart';
 import 'package:recipe_manager/recipe/view/recipe_card.dart';
 
-class RecipesPage extends StatelessWidget {
+class RecipesPage extends StatefulWidget {
   const RecipesPage({super.key});
+  @override
+  _RecipePageState createState() => _RecipePageState();
+}
+
+class _RecipePageState extends State<RecipesPage> {
+  final TextEditingController _textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: SizedBox(
+          height: 40,
+          child: TextField(
+            controller: _textController,
+            decoration: InputDecoration(
+              hintText: "Rechercher une recette",
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              suffixIcon: IconButton(
+                onPressed: () async {
+                  context.read<RecipesCubit>().searchRecipes(
+                    _textController.text,
+                  );
+                },
+                icon: Icon(Icons.search),
+              ),
+            ),
+          ),
+        ),
+      ),
       body: BlocBuilder<RecipesCubit, RecipesState>(
         builder: (context, state) {
           return switch (state.status) {
@@ -26,12 +54,6 @@ class RecipesPage extends StatelessWidget {
             ),
           };
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          context.read<RecipesCubit>().searchRecipes('pie');
-        },
-        child: Icon(Icons.search),
       ),
     );
   }

@@ -35,11 +35,10 @@ class RecipeCard extends StatelessWidget {
                   child: BlocBuilder<FavoriteCubit, FavoriteState>(
                     builder: (context, state) {
                       final favoritesCubit = context.read<FavoriteCubit>();
-                      final isFavorite = favoritesCubit.isFavorite(recipe.id);
+                      final isFavorite = favoritesCubit.isFavorite(recipe);
                       return IconButton(
                         onPressed:
-                            () async =>
-                                favoritesCubit.toggleFavorite(recipe.id),
+                            () async => favoritesCubit.toggleFavorite(recipe),
                         icon: Icon(
                           isFavorite ? Icons.star : Icons.star_border,
                           color: Colors.amber,

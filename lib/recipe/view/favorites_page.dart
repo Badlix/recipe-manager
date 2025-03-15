@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_manager/recipe/cubit/favorite_cubit.dart';
+import 'package:recipe_manager/recipe/view/recipe_card.dart';
 
 class FavoritesPage extends StatelessWidget {
   const FavoritesPage({super.key});
@@ -14,7 +15,7 @@ class FavoritesPage extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 10),
             children:
                 state.favorites
-                    .map((recipe) => Center(child: Text(recipe.toString())))
+                    .map((recipe) => Center(child: RecipeCard(recipe: recipe)))
                     .toList(),
           );
         },

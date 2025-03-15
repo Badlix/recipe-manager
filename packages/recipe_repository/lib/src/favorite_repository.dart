@@ -1,21 +1,23 @@
 import 'dart:async';
 
+import 'package:recipe_repository/recipe_repository.dart';
+
 class FavoriteRepository {
-  FavoriteRepository({List<int>? favoriteRecipesIds})
-    : _favoriteRecipesIds = favoriteRecipesIds ?? [];
+  FavoriteRepository({List<Recipe>? favoriteRecipes})
+    : _favoriteRecipes = favoriteRecipes ?? [];
 
-  final List<int> _favoriteRecipesIds;
+  final List<Recipe> _favoriteRecipes;
 
-  Future<List<int>> getFavorites() async {
-    return _favoriteRecipesIds;
+  Future<List<Recipe>> getFavorites() async {
+    return _favoriteRecipes;
   }
 
-  Future<void> addFavorite(int recipeId) async {
-    _favoriteRecipesIds.add(recipeId);
+  Future<void> addFavorite(Recipe recipe) async {
+    _favoriteRecipes.add(recipe);
   }
 
-  Future<void> removeFavorite(int recipeId) async {
-    _favoriteRecipesIds.remove(recipeId);
+  Future<void> removeFavorite(Recipe recipe) async {
+    _favoriteRecipes.remove(recipe);
   }
 
   void dispose() {}

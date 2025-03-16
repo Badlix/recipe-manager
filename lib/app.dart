@@ -8,34 +8,33 @@ import 'package:recipe_manager/recipe/view/recipes_page.dart';
 import 'package:recipe_repository/recipe_repository.dart';
 
 class RecipeApp extends StatelessWidget {
-  const RecipeApp({super.key});
+  const RecipeApp({
+    super.key,
+    required this.recipesRepository,
+    required this.favoritesRepository,
+  });
+  final RecipeRepository recipesRepository;
+  final FavoriteRepository favoritesRepository;
 
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<RecipeRepository>(
-          create: (context) => RecipeRepository(),
+          create: (context) => recipesRepository,
           dispose: (repository) => repository.dispose(),
         ),
         RepositoryProvider<FavoriteRepository>(
-          create: (context) => FavoriteRepository(),
+          create: (context) => favoritesRepository,
           dispose: (repository) => repository.dispose(),
         ),
       ],
       child: MultiBlocProvider(
         providers: [
+          BlocProvider(create: (context) => RecipesCubit(recipesRepository)),
+          BlocProvider(create: (context) => FavoriteCubit(favoritesRepository)),
           BlocProvider(
-            create: (context) => RecipesCubit(context.read<RecipeRepository>()),
-          ),
-          BlocProvider(
-            create:
-                (context) => FavoriteCubit(context.read<FavoriteRepository>()),
-          ),
-          BlocProvider(
-            create:
-                (context) =>
-                    RecipeDetailsCubit(context.read<RecipeRepository>()),
+            create: (context) => RecipeDetailsCubit(recipesRepository),
           ),
         ],
         child: const RecipeAppView(),

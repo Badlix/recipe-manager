@@ -14,7 +14,6 @@ class _RecipePageState extends State<RecipesPage> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<RecipesCubit>().searchRecipes("");
     return Scaffold(
       appBar: AppBar(
         title: SizedBox(

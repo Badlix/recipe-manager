@@ -25,8 +25,13 @@ void main() {
     });
 
     group('recipeSearch', () {
-      const query = 'mock-query';
+      const query = 'pasta';
       test('makes correct http request', () async {
+        // final fakeResponse = jsonEncode([
+        //   {"id": 1, "name": "Pizza"},
+        //   {"id": 2, "name": "Pasta"},
+        // ]);
+
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
         when(() => response.body).thenReturn('{}');

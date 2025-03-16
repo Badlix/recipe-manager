@@ -19,12 +19,16 @@ class SpoonacularApiClient {
 
   // GET '/recipes/complexSearch?query=(query)'
   Future<List<Recipe>> recipeSearch(String query) async {
-    final recipeRequest =
-        Uri.https(_baseUrlSpoonacular, '/recipes/complexSearch', {
-          'apiKey': const String.fromEnvironment('SPOONACULAR_KEY'),
-          'query': query,
-          'number': '10',
-        });
+    final recipeRequest = Uri.https(
+      _baseUrlSpoonacular,
+      '/recipes/complexSearch',
+      {
+        //'apiKey': const String.fromEnvironment('SPOONACULAR_KEY'),
+        'apiKey': "1aa6d4d3fdee41fa9a3cad41a8ad9ec1",
+        'query': query,
+        'number': '10',
+      },
+    );
 
     final recipeResponse = await _httpClient.get(recipeRequest);
 
@@ -64,7 +68,8 @@ class SpoonacularApiClient {
     final recipeRequest = Uri.https(
       _baseUrlSpoonacular,
       '/recipes/$id/information',
-      {'apiKey': const String.fromEnvironment('SPOONACULAR_KEY')},
+      {'apiKey': "1aa6d4d3fdee41fa9a3cad41a8ad9ec1"},
+      //{'apiKey': const String.fromEnvironment('SPOONACULAR_KEY')},
     );
 
     final recipeResponse = await _httpClient.get(recipeRequest);

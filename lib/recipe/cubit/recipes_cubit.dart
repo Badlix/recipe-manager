@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:recipe_manager/recipe/models/recipe_details.dart';
 import 'package:recipe_manager/recipe/recipe.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:recipe_repository/recipe_repository.dart' show RecipeRepository;
@@ -23,7 +24,21 @@ class RecipesCubit extends Cubit<RecipesState> {
         ),
       );
     } catch (error) {
-      print("ERROR : ${error.toString()}");
+      emit(state.copyWith(status: RecipesStatus.failure));
+    }
+  }
+
+  Future<void> getRecipeDetail(int id) async {
+    try {
+      emit(state.copyWith(status: RecipesStatus.loading));
+      final recipe = await _repository.getRecipeDetail(id);
+      emit(
+        state.copyWith(
+          status: RecipesStatus.success,
+          recipeDetails: RecipeDetails.fromRepository(recipe),
+        ),
+      );
+    } catch (error) {
       emit(state.copyWith(status: RecipesStatus.failure));
     }
   }

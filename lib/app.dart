@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_manager/recipe/cubit/recipe_details_cubit.dart';
 import 'package:recipe_manager/recipe/cubit/recipes_cubit.dart';
 import 'package:recipe_manager/recipe/cubit/favorite_cubit.dart';
 import 'package:recipe_manager/recipe/view/favorites_page.dart';
@@ -30,6 +31,11 @@ class RecipeApp extends StatelessWidget {
           BlocProvider(
             create:
                 (context) => FavoriteCubit(context.read<FavoriteRepository>()),
+          ),
+          BlocProvider(
+            create:
+                (context) =>
+                    RecipeDetailsCubit(context.read<RecipeRepository>()),
           ),
         ],
         child: const RecipeAppView(),

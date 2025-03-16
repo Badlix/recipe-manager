@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:recipe_repository/src/models/recipe_details.dart';
 import 'package:spoonacular_api/spoonacular_api.dart' hide Recipe;
 import 'package:recipe_repository/recipe_repository.dart';
 
@@ -19,9 +20,15 @@ class RecipeRepository {
         .toList();
   }
 
-  Future<Recipe> getRecipeDetail(int id) async {
+  Future<RecipeDetails> getRecipeDetail(int id) async {
     final recipe = await _spoonacularApiClient.getRecipeDetail(id);
-    return Recipe(id: recipe.id, name: recipe.title, imageUri: recipe.image);
+    return RecipeDetails(
+      id: recipe.id,
+      name: recipe.title,
+      imageUri: recipe.image,
+      ingredients: recipe.extendedIngredients,
+      steps: recipe.analyzedInstructions,
+    );
   }
 
   void dispose() => _spoonacularApiClient.close();

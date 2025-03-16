@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipe_manager/recipe/cubit/recipes_cubit.dart';
+import 'package:recipe_manager/recipe/cubit/recipe_details_cubit.dart';
 import 'package:recipe_manager/recipe/models/recipe.dart';
-import 'package:recipe_manager/recipe/view/recipe_card.dart';
 
 class RecipeDetailPage extends StatelessWidget {
   const RecipeDetailPage({super.key, required this.recipe});
@@ -11,15 +10,18 @@ class RecipeDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<RecipeDetailsCubit>().getRecipeDetail(recipe.id);
     return Scaffold(
       appBar: AppBar(title: Text(recipe.name)),
-      body: BlocBuilder<RecipesCubit, RecipesState>(
+      body: BlocBuilder<RecipeDetailsCubit, RecipeDetailsState>(
         builder: (context, state) {
           return switch (state.status) {
-            RecipesStatus.initial => const Center(child: Text('Starting')),
-            RecipesStatus.loading => const Center(child: Text('Loading')),
-            RecipesStatus.failure => const Center(child: Text('Failure')),
-            RecipesStatus.success => Container(
+            RecipeDetailsStatus.initial => const Center(
+              child: Text('Starting'),
+            ),
+            RecipeDetailsStatus.loading => const Center(child: Text('Loading')),
+            RecipeDetailsStatus.failure => const Center(child: Text('Failure')),
+            RecipeDetailsStatus.success => Container(
               padding: EdgeInsets.symmetric(vertical: 10),
               child: SingleChildScrollView(
                 child: Column(
@@ -27,7 +29,7 @@ class RecipeDetailPage extends StatelessWidget {
                   children: [
                     // Recipe image
                     Image.network(
-                      recipe.imageUri,
+                      state.recipeDetails.imageUri,
                       height: 250,
                       width: double.infinity,
                       fit: BoxFit.cover,
@@ -39,7 +41,7 @@ class RecipeDetailPage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 20),
                       child: Text(
-                        recipe.name,
+                        state.recipeDetails.name,
                         style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -60,9 +62,20 @@ class RecipeDetailPage extends StatelessWidget {
                         ),
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children:
+                            state.recipeDetails.ingredients
+                                .map((ingredient) => Text(" - $ingredient"))
+                                .toList(),
+                      ),
+                    ),
+
                     const SizedBox(height: 15),
 
-                    /// Recipe step
+                    /// Recipe steps
                     Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child: const Text(
@@ -71,6 +84,16 @@ class RecipeDetailPage extends StatelessWidget {
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                         ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children:
+                            state.recipeDetails.steps
+                                .map((step) => Text(step))
+                                .toList(),
                       ),
                     ),
                   ],

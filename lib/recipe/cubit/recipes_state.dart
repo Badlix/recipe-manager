@@ -10,19 +10,29 @@ extension RecipeStatusX on RecipesStatus {
 }
 
 final class RecipesState extends Equatable {
-  RecipesState({this.status = RecipesStatus.initial, List<Recipe>? recipes})
-    : recipes = recipes ?? [];
+  RecipesState({
+    this.status = RecipesStatus.initial,
+    List<Recipe>? recipes,
+    RecipeDetails? recipeDetails,
+  }) : recipes = recipes ?? [],
+       recipeDetails = recipeDetails ?? RecipeDetails.emptyInstance();
 
   final RecipesStatus status;
   final List<Recipe> recipes;
+  final RecipeDetails recipeDetails;
 
-  RecipesState copyWith({RecipesStatus? status, List<Recipe>? recipes}) {
+  RecipesState copyWith({
+    RecipesStatus? status,
+    List<Recipe>? recipes,
+    RecipeDetails? recipeDetails,
+  }) {
     return RecipesState(
       status: status ?? this.status,
       recipes: recipes ?? this.recipes,
+      recipeDetails: recipeDetails ?? this.recipeDetails,
     );
   }
 
   @override
-  List<Object?> get props => [status, recipes];
+  List<Object?> get props => [status, recipes, recipeDetails];
 }

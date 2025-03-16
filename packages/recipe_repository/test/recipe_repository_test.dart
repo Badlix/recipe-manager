@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:mocktail/mocktail.dart';
+import 'package:recipe_repository/src/models/recipe_details.dart';
 import 'package:spoonacular_api/spoonacular_api.dart' as spoonacular_api;
 import 'package:test/test.dart';
 import 'package:recipe_repository/recipe_repository.dart';
@@ -34,7 +35,7 @@ void main() {
       const id = 716429;
 
       test('calls getRecipeDetail with correct id', () async {
-        Recipe recipe = await recipeRepository.getRecipeDetail(id);
+        RecipeDetails recipe = await recipeRepository.getRecipeDetail(id);
 
         expect(recipe.id, 716429);
         expect(

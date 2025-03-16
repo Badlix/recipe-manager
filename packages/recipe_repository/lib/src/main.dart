@@ -1,5 +1,4 @@
 import 'package:recipe_repository/recipe_repository.dart';
-import 'package:recipe_repository/src/models/recipe_details.dart';
 
 void main() async {
   // List<Recipe> recipes = await RecipeRepository().searchRecipes("soupe");

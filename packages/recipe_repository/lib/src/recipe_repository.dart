@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:recipe_repository/src/models/recipe_details.dart';
 import 'package:spoonacular_api/spoonacular_api.dart' hide Recipe;
 import 'package:recipe_repository/recipe_repository.dart';
 

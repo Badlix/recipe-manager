@@ -5,7 +5,7 @@ import 'package:recipe_manager/recipe/cubit/recipe_details_cubit.dart';
 import 'package:recipe_manager/recipe/cubit/recipes_cubit.dart';
 import 'package:recipe_manager/recipe/view/favorites_page.dart';
 import 'package:recipe_manager/recipe/view/recipes_page.dart';
-import 'package:recipe_repository/recipe_repository.dart' hide Recipe;
+import 'package:recipe_repository/recipe_repository.dart';
 
 class RecipeApp extends StatelessWidget {
   const RecipeApp({

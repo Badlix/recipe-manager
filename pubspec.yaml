@@ -45,6 +45,8 @@ dependencies:
   hydrated_bloc: ^10.0.0
   recipe_repository:
     path: packages/recipe_repository
+  local_storage:
+    path: packages/local_storage
   drift: ^2.26.0
   drift_flutter: ^0.2.4
 

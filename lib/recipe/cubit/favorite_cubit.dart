@@ -6,7 +6,17 @@ import 'package:recipe_repository/recipe_repository.dart' as repository;
 part 'favorite_state.dart';
 
 class FavoriteCubit extends Cubit<FavoriteState> {
-  FavoriteCubit(this._favoriteRepository) : super(FavoriteState());
+  FavoriteCubit(
+    this._favoriteRepository,
+    List<repository.Recipe> loadedFavorites,
+  ) : super(
+        FavoriteState(
+          favorites:
+              loadedFavorites
+                  .map((recipe) => Recipe.fromRepository(recipe))
+                  .toList(),
+        ),
+      );
 
   final repository.FavoriteRepository _favoriteRepository;
 

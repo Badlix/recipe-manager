@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_manager/recipe/cubit/recipe_details_cubit.dart';
 import 'package:recipe_manager/recipe/models/recipe.dart';
 import 'package:recipe_manager/recipe/cubit/favorite_cubit.dart';
 import 'package:recipe_manager/recipe/view/recipe_detail_page.dart';
+import 'package:recipe_repository/recipe_repository.dart' as repository;
 
 class RecipeCard extends StatelessWidget {
   const RecipeCard({super.key, required this.recipe});

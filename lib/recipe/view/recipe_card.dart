@@ -18,7 +18,18 @@ class RecipeCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => RecipeDetailPage(recipe: recipe),
+              builder: (context) {
+                final recipesRepository =
+                    RepositoryProvider.of<repository.RecipeRepository>(context);
+                final recipeDetailsCubit = RecipeDetailsCubit(
+                  recipesRepository,
+                );
+                recipeDetailsCubit.getRecipeDetail(recipe.id);
+                return BlocProvider(
+                  create: (context) => recipeDetailsCubit,
+                  child: RecipeDetailPage(recipe: recipe),
+                );
+              },
             ),
           );
         },

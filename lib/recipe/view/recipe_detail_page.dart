@@ -10,7 +10,6 @@ class RecipeDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<RecipeDetailsCubit>().getRecipeDetail(recipe.id);
     return Scaffold(
       appBar: AppBar(title: Text(recipe.name)),
       body: BlocBuilder<RecipeDetailsCubit, RecipeDetailsState>(

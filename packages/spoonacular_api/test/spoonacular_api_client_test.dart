@@ -37,9 +37,9 @@ void main() {
         verify(
           () => httpClient.get(
             Uri.https('api.spoonacular.com', '/recipes/complexSearch', {
-              'apiKey': const String.fromEnvironment('SPOONACULAR_KEY'),
+              'apiKey': '',
               'query': query,
-              'number': '1',
+              'number': '10',
             }),
           ),
         ).called(1);
@@ -91,9 +91,10 @@ void main() {
   ]
 }''');
         when(() => httpClient.get(any())).thenAnswer((_) async => response);
-        final actual = await apiClient.recipeSearch(query);
+        final List<Recipe> recipes = await apiClient.recipeSearch(query);
+        expect(recipes.length, 1);
         expect(
-          actual,
+          recipes.first,
           isA<Recipe>()
               .having((l) => l.title, 'title', 'Soupe aux champignons')
               .having((l) => l.id, 'id', 13)

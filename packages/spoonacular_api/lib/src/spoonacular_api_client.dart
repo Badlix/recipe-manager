@@ -44,17 +44,6 @@ class SpoonacularApiClient {
     for (var recipe in results) {
       recipes.add(Recipe.fromJson(recipe as Map<String, dynamic>));
     }
-    // List<Recipe> recipes = [];
-    // for (var i = 0; i < 5; i++) {
-    //   recipes.add(
-    //     Recipe(
-    //       id: i,
-    //       title: "Recette $i",
-    //       image:
-    //           "https://assistanteplus.fr/wp-content/uploads/2022/04/chat-midjourney.webp",
-    //     ),
-    //   );
-    // }
 
     return recipes;
   }

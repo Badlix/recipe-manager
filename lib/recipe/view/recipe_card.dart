@@ -52,8 +52,8 @@ class RecipeCard extends StatelessWidget {
                           onPressed:
                               () async => favoritesCubit.toggleFavorite(recipe),
                           icon: Icon(
-                            isFavorite ? Icons.star : Icons.star_border,
-                            color: Colors.amber,
+                            isFavorite ? Icons.favorite : Icons.favorite_border,
+                            color: Colors.red,
                           ),
                         );
                       },

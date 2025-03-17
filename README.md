@@ -1,6 +1,7 @@
 ## Lancement de l'application
 
 ```bash
+flutter pub get
 flutter run --dart-define=SPOONACULAR_KEY="your key" 
 ```
 ## Fonctionnalités 
